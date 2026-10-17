@@ -10,7 +10,7 @@
 #include "freertos/task.h"  // for TaskHandle_t
 #include "driver/gpio.h"    // freeRTOS driver for uart macros
 //#include freertos_ext/FreeRTOS_CLI.h" // for CLI_Command_Definition_t
-#include "gpio_pin_assign.h"
+//#include "gpio_pin_assign.h"
 
 /*  GPIOs   */
 #define HIGH          1
@@ -33,7 +33,7 @@ extern bool GPIO_ISR_FLAG;
 /**
  * 
  */
-void GPIO_task(void *arg);
+//void GPIO_task(void *arg);
 
 /**
  * 
