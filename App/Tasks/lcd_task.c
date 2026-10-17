@@ -20,6 +20,8 @@
 // for LCD_I2C library
 #include "lcd_i2c.h"
 
+// for pin assignments
+#include "gpio_pin_assign.h"
 
 void lcd_task(int argc, char *argv[]) {
 
@@ -30,7 +32,7 @@ void lcd_task(int argc, char *argv[]) {
     i2c_master_dev_handle_t lcd_handle = NULL;
 
    /* -- Set up the I2C Bus -- */
-   initialize_i2c_bus(&bus_handle, I2C_CLK_SRC_DEFAULT, I2C_NUM_0, GPIO_NUM_21, GPIO_NUM_22, true);
+   initialize_i2c_bus(&bus_handle, I2C_CLK_SRC_DEFAULT, I2C_NUM_0, LCD_I2C_SDA, LCD_I2C_SCL, true);
 
    /* -- Add LCD Display to the I2C Bus -- */
     i2cAddSlaveToBus(bus_handle, &lcd_handle, LCD_SCL_SPEED_HZ, LCD_ADDR);
@@ -74,77 +76,77 @@ void lcd_task(int argc, char *argv[]) {
         // Test Print String
         lcd_print(lcd, " RIO");
 
-        // Test No Blink Cursor
-        lcd_no_blink_cursor(lcd);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // // Test No Blink Cursor
+         lcd_no_blink_cursor(lcd);
+         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-        // Test set cursor
-        lcd_set_cursor(lcd, 1, 3);  // Move cursor to the beginning of the second line
-        lcd_print(lcd, "Woof Woof!");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // // Test set cursor
+         lcd_set_cursor(lcd, 1, 3);  // Move cursor to the beginning of the second line
+         lcd_print(lcd, "Woof Woof!");
+         vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-        // test lcd_send_cmd fx
-		lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY);
-		lcd_send_cmd(lcd, LCD_CMD_RETURN_HOME);  
-		vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // // test lcd_send_cmd fx
+		// lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY);
+		// lcd_send_cmd(lcd, LCD_CMD_RETURN_HOME);  
+		// vTaskDelay(1000 / portTICK_PERIOD_MS);
 
 
-        // Test Custom Characters
-        lcd_print(lcd, "Custom Chars: ");
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // // Test Custom Characters
+        // lcd_print(lcd, "Custom Chars: ");
+        // vTaskDelay(1000 / portTICK_PERIOD_MS);
         
-		lcd_set_cursor(lcd, 1, 3);  // Move cursor to the middle of the second line
+		// lcd_set_cursor(lcd, 1, 3);  // Move cursor to the middle of the second line
 
-        // Test hide cursor
-        lcd_hide_cursor(lcd);
+        // // Test hide cursor
+        // lcd_hide_cursor(lcd);
 
-        for(int i = 0; i < 7; i++)
-        {
-            lcd_send_data(lcd, i); // Print custom characters (0-7)
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
-        }
+        // for(int i = 0; i < 7; i++)
+        // {
+        //     lcd_send_data(lcd, i); // Print custom characters (0-7)
+        //     vTaskDelay(1000 / portTICK_PERIOD_MS);
+        // }
 
-        // Test Shifts
-        lcd_display_shift_left(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_shift_left(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_shift_left(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // // Test Shifts
+        // lcd_display_shift_left(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_shift_left(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_shift_left(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
 
 
-        lcd_display_shift_right(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_shift_right(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_shift_right(lcd, 1);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_shift_right(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_shift_right(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_shift_right(lcd, 1);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // Test Display Cycle
-        lcd_display_off(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_on(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_off(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_on(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // // Test Display Cycle
+        // lcd_display_off(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_on(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_off(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_on(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // Test Display On/Off
-        lcd_display_disable_backlight(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_enable_backlight(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_disable_backlight(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
-        lcd_display_enable_backlight(lcd);
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // // Test Display On/Off
+        // lcd_display_disable_backlight(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_enable_backlight(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_disable_backlight(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
+        // lcd_display_enable_backlight(lcd);
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // Test command wrappers
-        lcd_home(lcd);
-	    lcd_clear_display(lcd);  
+        // // Test command wrappers
+        // lcd_home(lcd);
+	    // lcd_clear_display(lcd);  
 
-        // Short delay before repeating the loop
-        vTaskDelay(500 / portTICK_PERIOD_MS);
+        // // Short delay before repeating the loop
+        // vTaskDelay(500 / portTICK_PERIOD_MS);
     }
 }

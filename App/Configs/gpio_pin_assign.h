@@ -30,8 +30,8 @@
 /**
  * LCD Pins
  */
-#define LCD_I2C_SCL     GPIO_NUM_22
 #define LCD_I2C_SDA     GPIO_NUM_21
+#define LCD_I2C_SCL     GPIO_NUM_22
 
 /**
  * I2C Bus Pins

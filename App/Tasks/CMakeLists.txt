@@ -4,6 +4,7 @@ idf_component_register(
         "lcd_task.c"       # LCD
     INCLUDE_DIRS 
         "include"
+        "../Configs"   # for GPIO pin assignments
     PRIV_REQUIRES 
         freertos
         LCD_I2C # LCD Interface

@@ -6,6 +6,7 @@ idf_component_register(
         # tasks
     INCLUDE_DIRS 
         "include"
+        "Configs"
     PRIV_REQUIRES 
         freertos
         Tasks
