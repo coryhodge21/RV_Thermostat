@@ -8,6 +8,7 @@ idf_component_register(
         "include"
     PRIV_REQUIRES 
         freertos
+        Tasks
     REQUIRES 
         driver
     )

@@ -5,9 +5,10 @@
  * @brief: place to keep tasks organized
  */
 #include "tasks.h"
+#include "lcd_tasks.h"
 
 //startTasks
 void startTasks(void)
 {
-
+    lcd_task(0, 0);
 }

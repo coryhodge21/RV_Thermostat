@@ -15,10 +15,11 @@
 #include <esp_err.h>
 
 // for LCD_I2C library
-#include "LCD_I2C.h"
+//#include "LCD_I2C.h"
+#include "lcd_i2c.h"
 
 
-void app_main(int argc, char *argv[]) {
+void lcd_task(int argc, char *argv[]) {
 
     // Master Bus Handle
     i2c_master_bus_handle_t bus_handle = NULL;

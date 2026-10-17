@@ -9,6 +9,8 @@ message(STATUS "Configuring the project... ${CMAKE_CURRENT_LIST_DIR}")
 ## GPIO
 set(EXTRA_COMPONENT_DIRS 
     "${CMAKE_CURRENT_LIST_DIR}/App"
+    "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
+    "${CMAKE_CURRENT_LIST_DIR}/App/Tasks"
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/gpio"
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/I2C"
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/LCD_I2C"
