@@ -6,7 +6,8 @@ idf_component_register(
         "include"
     PRIV_REQUIRES 
         freertos
-        LCD_I2C
+        LCD_I2C # LCD Interface
+        I2C     # I2C Interface
     REQUIRES 
         driver
     )
