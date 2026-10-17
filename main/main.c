@@ -1,10 +1,16 @@
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "gpio_driver.h"
-#include "tasks.h"
+/**
+ * @file main.c
+ * @date: 4/26/2026
+ * @author: Cory W. Hodge
+ * @brief: Wrapper entry point, to adhere to standark CMake and ESP-IDF project structure.
+ */
 
+// Project/App/include/app.h
+#include "app.h"
+
+// app_main
 void app_main(void)
 {
-    startTasks();
+    // Call the application entry point
+    application_entry();
 }
