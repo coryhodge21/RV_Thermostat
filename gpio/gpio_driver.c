@@ -10,6 +10,8 @@
 #include "gpio_driver.h"        // Project Driver
 #include <string.h>             // for memset()
 //#include "esp_log.h"          // for ESP_LOG
+//#include "freertos/task.h"  // for TaskHandle_t
+//#include "driver/gpio.h"    // freeRTOS driver for uart macros
 
 /**
  * Global Task Handle

@@ -9,7 +9,7 @@
 
 #include "freertos/task.h"  // for TaskHandle_t
 #include "driver/gpio.h"    // freeRTOS driver for uart macros
-#include "../freertos_ext/FreeRTOS_CLI.h" // for CLI_Command_Definition_t
+//#include freertos_ext/FreeRTOS_CLI.h" // for CLI_Command_Definition_t
 #include "gpio_pin_assign.h"
 
 /*  GPIOs   */
@@ -49,7 +49,7 @@ void blink_led(gpio_num_t led_pin);
   * @brief: Toggles the flag that is normally
   *           toggled with gpio interrupt
   */
-extern const CLI_Command_Definition_t xToggleGpioIsrFlag;
+//extern const CLI_Command_Definition_t xToggleGpioIsrFlag;
 
 
 #endif // _UART_DRIVER_H_
