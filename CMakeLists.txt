@@ -7,7 +7,10 @@ message(STATUS "Configuring the project... ${CMAKE_CURRENT_LIST_DIR}")
 # Components :
 
 ## GPIO
-set(EXTRA_COMPONENT_DIRS ${CMAKE_CURRENT_LIST_DIR}/gpio)
+set(EXTRA_COMPONENT_DIRS 
+    "${CMAKE_CURRENT_LIST_DIR}/gpio"
+    "${CMAKE_CURRENT_LIST_DIR}/Drivers/I2C"
+)
 
 # Output Build information
 message(STATUS "EXTRA_COMPONENT_DIRS: ${EXTRA_COMPONENT_DIRS}")
