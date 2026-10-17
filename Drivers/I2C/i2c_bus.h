@@ -14,13 +14,13 @@
 #include "freertos/task.h"
 
 // for CLI_Command_Definition_t
-#include "../freertos_ext/FreeRTOS_CLI.h"
+//#include "../freertos_ext/FreeRTOS_CLI.h"
 
 // For pin assignments
-#include "gpio_pin_assign.h"
+//#include "gpio_pin_assign.h"
 
 // for i2c Macro
-#include "i2c_interface.h"
+//#include "i2c_interface.h"
 
 // for i2c driver
 #include "driver/i2c_master.h"
@@ -35,7 +35,7 @@
 /**
  * Global Task Handle
  */
-extern TaskHandle_t xI2CBusTaskHandle;
+//extern TaskHandle_t xI2CBusTaskHandle;
 
  /**
   * initialize_i2c_bus
@@ -56,10 +56,10 @@ extern TaskHandle_t xI2CBusTaskHandle;
  */
 void i2cAddSlaveToBus(i2c_master_bus_handle_t bus_handle, i2c_master_dev_handle_t * dev_handle, uint32_t scl_speed_hz, uint16_t dev_addr);
 
-/**
- * I2C Master Task
- * @param pvParameters Parameters for the task (not used)
- */
-void i2c_master_task(void * pvParameters);
+// /**
+//  * I2C Master Task
+//  * @param pvParameters Parameters for the task (not used)
+//  */
+// void i2c_master_task(void * pvParameters);
 
 #endif // _I2C_BUS_H_

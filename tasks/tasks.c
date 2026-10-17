@@ -1,6 +1,0 @@
-
-//startTasks
-void startTasks(void)
-{
-
-}
