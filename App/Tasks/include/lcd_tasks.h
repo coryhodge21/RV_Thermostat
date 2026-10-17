@@ -12,6 +12,6 @@
   * lcd_task
   * @brief: Task to control the LCD display using the LCD_I2C library.
   */
-void lcd_task(int argc, char *argv[]);
+void lcd_task(void * pvParameters);
 
  #endif // _LCD_TASKS_H_

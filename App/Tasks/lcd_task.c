@@ -23,7 +23,9 @@
 // for pin assignments
 #include "gpio_pin_assign.h"
 
-void lcd_task(int argc, char *argv[]) {
+
+
+void lcd_task(void * pvParameters) {
 
     // Master Bus Handle
     i2c_master_bus_handle_t bus_handle = NULL;
