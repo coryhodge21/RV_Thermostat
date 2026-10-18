@@ -6,6 +6,8 @@ message(STATUS "Configuring the project... ${CMAKE_CURRENT_LIST_DIR}")
 
 # Components :
 set(EXTRA_COMPONENT_DIRS 
+    # Resources directory
+    "${CMAKE_CURRENT_LIST_DIR}/Resources"
     # freeRTOS_CLI extension
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
     # Main Application
