@@ -1,7 +1,8 @@
 # CMakeLists.txt for the CLI component
 idf_component_register(
     SRCS 
-        "cli.c" 
+        "cli.c"
+        "../DEV/dev.c"  # for devFlag
     INCLUDE_DIRS 
         "."
         "../Configs"   # for GPIO pin assignments
@@ -11,5 +12,6 @@ idf_component_register(
     PRIV_REQUIRES 
         freeRTOS_CLI # freeRTOS CLI extension
         uart # my driver for uart functionality wrappers
-
+        gpio
+        DEV     # for devFlag
     )

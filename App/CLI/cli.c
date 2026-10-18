@@ -10,80 +10,25 @@
 #include "freertos/queue.h"
 #include "driver/uart.h"
 #include "uart_driver.h"    // custom uart wrapper
+#include "gpio_driver.h"    // custom gpio wrapper; GPIO_ISR_FLAG
 #include "esp_log.h"
 #include "gpio_pin_assign.h"    // for GPIO pin assignments
+#include "dev.h"    // for devFlag
 
-// Uart Port for CLI console interaction
-#define CLI_PORT UART_NUM_0
-#define CLI_PORT_BAUD 115200
+/******   Globals        */
+
+/**
+ * devFlag
+ * @brief: Globally accessible flag. Set with CLI
+ *          Command 'setDevFlag'. Defined in dev.c.
+ */
+extern int devFlag; 
+
 #define CLI_BUFFER_LEN (256)
-#define CLI_PORT_QUEUE QUEUE_UART_0 
-extern QueueHandle_t QUEUE_UART_0;
 
 // ESP_LOGx output tag
 static const char *TAG = "CLI";
 
-// Global handle, instantiated in main 
-TaskHandle_t xCliTaskHandle = NULL;
-
-/**
- * GPIO_ISR_FLAG
- * @breif: Flag set with cli cmd: toggleGpioIsrFlag
- *          This flag is normally operated by the 
- *          gpio ISR triggered by pushbutton event.
- */
-extern bool GPIO_ISR_FLAG;
-
-/******************************************************************/
-/**
- *  CLI TASK
- */
-/******************************************************************/
-
-/**         CLI TASK     */
-void cli_task(void *pvParameters)
-{
-    // Allocate buffer for parsing
-    char * cliBuffer = (char *) malloc(CLI_BUFFER_LEN);
-    char * respBuffer = (char *) malloc(CLI_BUFFER_LEN);
-
-    // -------------------------------
-    // Configure Uart
-    // ------------------------------
-    configureUart(CLI_PORT, CLI_PORT_BAUD, TX_PIN_UART_0, RX_PIN_UART_0);
-
-    // ------------------------------
-    // Register CLI Commands
-    // ------------------------------
-    cliRegisterCmds();
-
-    //  --------------------------------------
-    //      TASK LOOP
-    //  --------------------------------------
-    while(1)
-    {
-        // Collect data from uart port up to \n or \r, 
-        //  populate response into Buffer
-        uartCommunicationLoop(CLI_PORT, CLI_PORT_QUEUE, cliBuffer, CLI_BUFFER_LEN);
-    
-        // pass returned string into processing routine
-        processCLICommand(cliBuffer, CLI_BUFFER_LEN, respBuffer, CLI_BUFFER_LEN);
-    }
-
-    // free cli buffer
-    free(cliBuffer);
-    cliBuffer = NULL;
-
-    // free resp buffer
-    free(respBuffer);
-    respBuffer = NULL;
-
-    // Free Task
-    if(xCliTaskHandle != NULL)
-    {
-        vTaskDelete(xCliTaskHandle);
-    }
-}
 
 // processCLICommand
 bool processCLICommand(char * cmdStr, size_t cmdStrLen, char * respStr, size_t respStrLen)
@@ -419,6 +364,14 @@ static BaseType_t prvReturnAsMultiList( char *cmdOutputBeffer, size_t cmdOutBufS
 };
 
 /**************************************************************************** */
+
+/**
+ * GPIO_ISR_FLAG
+ * @breif: Flag set with cli cmd: toggleGpioIsrFlag
+ *          This flag is normally operated by the 
+ *          gpio ISR triggered by pushbutton event.
+ */
+extern bool GPIO_ISR_FLAG;
 
 /**
  * toggleGpioIsrFlag

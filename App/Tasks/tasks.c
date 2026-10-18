@@ -12,14 +12,16 @@
 // for tasks includes
 #include "tasks.h"
 
-// for lcd_task
-#include "lcd_tasks.h"
-
 // Define Task Handles
 TaskHandle_t xLcdTaskHandle = NULL;
+
+// Global handle for CLI task
+TaskHandle_t xCliTaskHandle = NULL;
 
 //startTasks
 void startTasks(void)
 {
     xTaskCreate(lcd_task, "lcd_task", 2048, NULL, 4, &xLcdTaskHandle);
+
+    xTaskCreate(cli_task, "cli_task", 2048, NULL, 4, &xCliTaskHandle);
 }

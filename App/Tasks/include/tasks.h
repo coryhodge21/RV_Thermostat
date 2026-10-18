@@ -20,4 +20,11 @@ void startTasks(void);
  * Program Tasks
  */
 
+ /**         LCD TASK     */
+ void lcd_task(void * pvParameters);
+
+/**         CLI TASK     */
+void cli_task(void *pvParameters);
+
+
 #endif // _TASKS_H_

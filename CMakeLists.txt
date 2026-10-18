@@ -12,10 +12,12 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
     # Main Application
     "${CMAKE_CURRENT_LIST_DIR}/App"
-    # Configurations
-    "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
     # Application CLI
     "${CMAKE_CURRENT_LIST_DIR}/App/CLI"
+    # Configurations
+    "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
+    # DEV
+    "${CMAKE_CURRENT_LIST_DIR}/App/DEV"
     # Tasks 
     "${CMAKE_CURRENT_LIST_DIR}/App/Tasks"
     # Drivers : GPIO

@@ -18,18 +18,18 @@
 //  */
 // TaskHandle_t xGPIOTaskHandle = NULL;
 
-// /**
-//  * Global Flag for ISR
-//  */
-// bool GPIO_ISR_FLAG = 0;
+/**
+ * Global Flag for ISR
+ */
+bool GPIO_ISR_FLAG = 0;
 
 
-// /**         GPIO ISR    */
-// static void IRAM_ATTR gpio_isr_handler(void* arg) {
+/**         GPIO ISR    */
+static void IRAM_ATTR gpio_isr_handler(void* arg) {
     
-//     // Set a flag when button is pushed to toggle LED blinking
-//     GPIO_ISR_FLAG = !GPIO_ISR_FLAG;
-// }
+    // Set a flag when button is pushed to toggle LED blinking
+    GPIO_ISR_FLAG = !GPIO_ISR_FLAG;
+}
 
 // /***        GPIO TASK          */
 // void GPIO_task(void *arg)
