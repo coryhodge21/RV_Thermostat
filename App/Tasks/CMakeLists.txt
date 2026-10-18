@@ -10,6 +10,7 @@ idf_component_register(
         freertos
         LCD_I2C # LCD Interface
         I2C     # I2C Interface
+        freeRTOS_CLI # freeRTOS CLI extension
     REQUIRES 
         driver
     )

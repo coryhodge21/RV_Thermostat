@@ -5,14 +5,22 @@ cmake_minimum_required(VERSION 3.16)
 message(STATUS "Configuring the project... ${CMAKE_CURRENT_LIST_DIR}")
 
 # Components :
-
-## GPIO
 set(EXTRA_COMPONENT_DIRS 
+    # freeRTOS_CLI extension
+    "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
+    # Main Application
     "${CMAKE_CURRENT_LIST_DIR}/App"
+    # Configurations
     "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
+    # Application CLI
+    "${CMAKE_CURRENT_LIST_DIR}/App/CLI"
+    # Tasks 
     "${CMAKE_CURRENT_LIST_DIR}/App/Tasks"
+    # Drivers : GPIO
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/gpio"
+    # Drivers : I2C
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/I2C"
+    # Drivers : LCD_I2C
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/LCD_I2C"
 )
 
