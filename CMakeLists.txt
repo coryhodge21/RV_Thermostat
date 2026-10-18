@@ -22,6 +22,9 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/I2C"
     # Drivers : LCD_I2C
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/LCD_I2C"
+    # Drivers : UART
+    "${CMAKE_CURRENT_LIST_DIR}/Drivers/uart"
+    
 )
 
 # Output Build informationaaa

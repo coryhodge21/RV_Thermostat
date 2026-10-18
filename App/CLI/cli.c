@@ -11,6 +11,7 @@
 #include "driver/uart.h"
 #include "uart_driver.h"    // custom uart wrapper
 #include "esp_log.h"
+#include "gpio_pin_assign.h"    // for GPIO pin assignments
 
 // Uart Port for CLI console interaction
 #define CLI_PORT UART_NUM_0
@@ -49,7 +50,7 @@ void cli_task(void *pvParameters)
     // -------------------------------
     // Configure Uart
     // ------------------------------
-    configureUart(CLI_PORT, CLI_PORT_BAUD);
+    configureUart(CLI_PORT, CLI_PORT_BAUD, TX_PIN_UART_0, RX_PIN_UART_0);
 
     // ------------------------------
     // Register CLI Commands
