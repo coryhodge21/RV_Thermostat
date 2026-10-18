@@ -39,3 +39,7 @@ include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
 # Set the project name
 project(RV_Thermostat)
+
+# Add git hash functionality
+include(./git_hash/CheckGit.cmake)
+CheckGitSetup()
