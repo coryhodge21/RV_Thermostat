@@ -3,7 +3,7 @@ idf_component_register(
     SRCS "serialRelay.c" 
     INCLUDE_DIRS 
         "."
-        "../../Configs/"    # for gpio_pin_assign.h
+        "${_APP_CONFIG_DIR_}"    # for gpio_pin_assign.h
     REQUIRES 
         freertos
         # for driver/uart.h

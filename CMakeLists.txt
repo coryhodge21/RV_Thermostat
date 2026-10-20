@@ -64,9 +64,12 @@ project(RV_Thermostat)
 include(./git_hash/CheckGit.cmake)
 CheckGitSetup()
 
-## Build Vars for components ##
-# set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}")  // .../RV_Thermostat/
-# set(_APP_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App")  // .../RV_Thermostat/App/
-# set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs")  // .../RV_Thermostat/App/Configs/
-# set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE")  // .../RV_Thermostat/App/SOURCE/
-# set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers")  // .../RV_Thermostat/Drivers/
+## Build Vars for components to reference ##
+set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}/" CACHE STRING "./" )
+set(_APP_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/" CACHE STRING "./App/")
+set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs/" CACHE STRING "./App/Configs/")
+set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/" CACHE STRING "./App/SOURCE/" )
+set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers/" CACHE STRING "./Drivers/" )
+set(_RESOURCES_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Resources/" CACHE STRING "./Resources/" )
+
+message(STATUS "_APP_CONFIG_DIR_: ${_APP_CONFIG_DIR_}")
