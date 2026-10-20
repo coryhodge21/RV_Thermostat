@@ -6,20 +6,16 @@ message(STATUS "Configuring the project... ${CMAKE_CURRENT_LIST_DIR}")
 
 # Components :
 set(EXTRA_COMPONENT_DIRS 
+
+    ## RESOURCES ##
+
     # Resources directory
     "${CMAKE_CURRENT_LIST_DIR}/Resources"
     # freeRTOS_CLI extension
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
-    # Main Application
-    "${CMAKE_CURRENT_LIST_DIR}/App"
-    # Application CLI
-    "${CMAKE_CURRENT_LIST_DIR}/App/CLI"
-    # Configurations
-    "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
-    # DEV
-    "${CMAKE_CURRENT_LIST_DIR}/App/DEV"
-    # Tasks 
-    "${CMAKE_CURRENT_LIST_DIR}/App/Tasks"
+    
+    ## DRIVERS ##
+
     # Drivers : GPIO
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/gpio"
     # Drivers : I2C
@@ -30,10 +26,33 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/uart"
     # Drivers : WIFI
     "${CMAKE_CURRENT_LIST_DIR}/Drivers/wifi"
+
+    ## APPLICATION ##
+
+    # Main Application
+    "${CMAKE_CURRENT_LIST_DIR}/App"
+    # App DEV Tools
+    "${CMAKE_CURRENT_LIST_DIR}/App/DEV"
+    # App CLI
+    "${CMAKE_CURRENT_LIST_DIR}/App/CLI"
+    # App Configurations
+    "${CMAKE_CURRENT_LIST_DIR}/App/Configs"
+
+    # Tasks 
+    "${CMAKE_CURRENT_LIST_DIR}/App/Tasks"
+
+    # Source Code
+    "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE"
+    # App Source Code : UART
+    "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/serialRelay"
 )
 
 # Output Build informationaaa
 message(STATUS "EXTRA_COMPONENT_DIRS: ${EXTRA_COMPONENT_DIRS}")
+message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
+
+#add_library(serialRelay "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/uart/serialRelay.c")
+#message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 
 # Include CMAKE from esp-idf
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
@@ -44,3 +63,10 @@ project(RV_Thermostat)
 # Add git hash functionality
 include(./git_hash/CheckGit.cmake)
 CheckGitSetup()
+
+## Build Vars for components ##
+# set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}")  // .../RV_Thermostat/
+# set(_APP_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App")  // .../RV_Thermostat/App/
+# set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs")  // .../RV_Thermostat/App/Configs/
+# set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE")  // .../RV_Thermostat/App/SOURCE/
+# set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers")  // .../RV_Thermostat/Drivers/

@@ -1,3 +1,4 @@
+# CMakeLists.txt for the I2C driver
 idf_component_register(
     SRCS 
         "i2c_bus.c" 
