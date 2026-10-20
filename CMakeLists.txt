@@ -15,7 +15,7 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
     
     # git_hash
-    "${CMAKE_CURRENT_LIST_DIR}/git_hash"
+    #"${CMAKE_CURRENT_LIST_DIR}/git_hash"
     
     ## DRIVERS ##
 
@@ -68,8 +68,8 @@ include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(RV_Thermostat)
 
 # Add git hash functionality
-include(./git_hash/CheckGit.cmake)
-CheckGitSetup()
+#include(./git_hash/CheckGit.cmake)
+#CheckGitSetup()
 
 ## Build Vars for components to reference ##
 set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}/" CACHE STRING "./" )

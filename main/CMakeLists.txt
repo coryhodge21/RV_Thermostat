@@ -3,5 +3,4 @@ idf_component_register(
         "main.c" 
     INCLUDE_DIRS 
         "."
-        "${_PROJECT_DIR_}/git_hash/"
         )
