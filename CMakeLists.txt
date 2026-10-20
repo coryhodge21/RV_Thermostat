@@ -15,7 +15,7 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
     
     # git_hash
-    #"${CMAKE_CURRENT_LIST_DIR}/git_hash"
+    "${CMAKE_CURRENT_LIST_DIR}/git_hash"
     
     ## DRIVERS ##
 
@@ -51,11 +51,8 @@ set(EXTRA_COMPONENT_DIRS
 )
 
 # Output Build informationaaa
-message(STATUS "EXTRA_COMPONENT_DIRS: ${EXTRA_COMPONENT_DIRS}")
-message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
-
-#add_library(serialRelay "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/uart/serialRelay.c")
-#message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
+# message(STATUS "EXTRA_COMPONENT_DIRS: ${EXTRA_COMPONENT_DIRS}")
+# message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 
 #add_library(serialRelay "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/uart/serialRelay.c")
 #message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
@@ -68,13 +65,13 @@ include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(RV_Thermostat)
 
 # Add git hash functionality
-#include(./git_hash/CheckGit.cmake)
-#CheckGitSetup()
+include(./git_hash/CheckGit.cmake)
+CheckGitSetup()
 
-## Build Vars for components to reference ##
-set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}/" CACHE STRING "./" )
-set(_APP_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/" CACHE STRING "./App/")
-set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs/" CACHE STRING "./App/Configs/")
-set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/" CACHE STRING "./App/SOURCE/" )
-set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers/" CACHE STRING "./Drivers/" )
-set(_RESOURCES_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Resources/" CACHE STRING "./Resources/" )
+# ## Build Vars for components to reference ##
+# set(_PROJECT_DIR_ "${CMAKE_CURRENT_LIST_DIR}/" CACHE STRING "./" )
+# set(_APP_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/" CACHE STRING "./App/")
+# set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs/" CACHE STRING "./App/Configs/")
+# set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/" CACHE STRING "./App/SOURCE/" )
+# set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers/" CACHE STRING "./Drivers/" )
+# set(_RESOURCES_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Resources/" CACHE STRING "./Resources/" )
