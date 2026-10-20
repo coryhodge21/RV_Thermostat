@@ -78,5 +78,5 @@ Desktop.ini
 *.sln.docstates # Visual Studio
 
 # git_hash
-# git_hash/generated/git-state.txt
-# git_hash/generated/git_version.cpp
+git_hash/generated/git-state.txt
+git_hash/generated/git_version.cpp
