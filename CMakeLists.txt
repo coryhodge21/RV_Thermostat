@@ -14,6 +14,9 @@ set(EXTRA_COMPONENT_DIRS
     # freeRTOS_CLI extension
     "${CMAKE_CURRENT_LIST_DIR}/Resources/freeRTOS_CLI"
     
+    # git_hash
+    "${CMAKE_CURRENT_LIST_DIR}/git_hash"
+    
     ## DRIVERS ##
 
     # Drivers : GPIO
@@ -54,6 +57,10 @@ message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 #add_library(serialRelay "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/uart/serialRelay.c")
 #message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
 
+#add_library(serialRelay "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/uart/serialRelay.c")
+#message(STATUS "CMAKE_CURRENT_LIST_DIR: ${CMAKE_CURRENT_LIST_DIR}")
+
+
 # Include CMAKE from esp-idf
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
@@ -71,5 +78,3 @@ set(_APP_CONFIG_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/Configs/" CACHE STRING "./Ap
 set(_APP_SOURCE_DIR_ "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/" CACHE STRING "./App/SOURCE/" )
 set(_DRIVERS_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Drivers/" CACHE STRING "./Drivers/" )
 set(_RESOURCES_DIR_ "${CMAKE_CURRENT_LIST_DIR}/Resources/" CACHE STRING "./Resources/" )
-
-message(STATUS "_APP_CONFIG_DIR_: ${_APP_CONFIG_DIR_}")
