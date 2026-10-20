@@ -24,9 +24,9 @@
    If you'd rather not, just change the below entries to strings with
    the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
-#define EXAMPLE_ESP_WIFI_SSID      "Rv-Net"
-#define EXAMPLE_ESP_WIFI_PASS      "AliensAreReal21!!"
-#define EXAMPLE_ESP_MAXIMUM_RETRY  5
+//#define EXAMPLE_ESP_WIFI_SSID      "
+//#define EXAMPLE_ESP_WIFI_PASS      ""
+//#define EXAMPLE_ESP_MAXIMUM_RETRY  5
 
 #if CONFIG_ESP_WPA3_SAE_PWE_HUNT_AND_PECK
 #define ESP_WIFI_SAE_MODE WPA3_SAE_PWE_HUNT_AND_PECK
