@@ -13,20 +13,20 @@
 #include "freertos/queue.h"
 
 // max size of message data
-#define MAX_MSG_DATA_LEN 32
+#define LCD_CONT_Q_MAX_MSG_DATA_LEN 32
 
 // max number of message slots in Q
 #define LCD_CONT_Q_MAX_NUM_MESSAGES 10
 
 // Global Handle for the LCD CONTROLLER Q
-extern QueueHandle_t LCD_CONTROLLER_Q;
+extern QueueHandle_t LCD_CONT_Q;
 
 /**
  * Define Message Types
  */
 typedef enum {
-    LCD_DATA_MSG = 0,
-    LCD_CMD_MSG = 1
+    LCD_MSG_CMD = 0,
+    LCD_MSG_DATA = 1
 } lcd_msg_type_t;
 
 /**
@@ -34,7 +34,7 @@ typedef enum {
  */
 typedef struct {
     // message data
-    uint8_t data[MAX_MSG_DATA_LEN];
+    uint8_t data[LCD_CONT_Q_MAX_MSG_DATA_LEN];
 
     // msg id
     unsigned int msgID;
@@ -47,16 +47,16 @@ typedef struct {
 /**
  * Initialize the Q
  */
-QueueHandle_t initializeLControllerQ(QueueHandle_t lcdContQ, uint8_t queueSize);
+QueueHandle_t LCDCONTQ_initializeQueue(QueueHandle_t lcdContQ, uint8_t queueSize);
 
 /**
  * Enqueue message
  */
-BaseType_t enqueueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg);
+BaseType_t LCDCONTQ_enqueueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg);
 
 /**
  * Dequeue message
  */
-BaseType_t dequeueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg, unsigned int msgID);
+void LCDCONTQ_dequeueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg);
 
 #endif // _LCD_CONTROLLER_

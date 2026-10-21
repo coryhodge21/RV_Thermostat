@@ -24,12 +24,12 @@ void startTasks(void)
       /**
        * occupies hardware : I2C_NUM_0
        */
-    xTaskCreate(lcd_task, "lcd_task", 2048, NULL, 4, &xLcdTaskHandle);
+    xTaskCreate(lcd_task, "lcd_task", 2048 * 2, NULL, 4, &xLcdTaskHandle);
 
     /**
        * occupies hardware : UART_NUM_0
        */
-    xTaskCreate(cli_task, "cli_task", 2048, NULL, 4, &xCliTaskHandle);
+    xTaskCreate(cli_task, "cli_task", 2048 * 2, NULL, 4, &xCliTaskHandle);
 
           /**
     *          TASK'S

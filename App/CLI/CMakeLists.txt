@@ -14,4 +14,5 @@ idf_component_register(
         uart # my driver for uart functionality wrappers
         gpio
         DEV     # for devFlag
+        lcdController # lcdController 
     )

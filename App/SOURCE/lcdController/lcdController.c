@@ -14,12 +14,12 @@
 /**
  * GLOBAL : Handle for the LCD CONTROLLER Q
  */
-QueueHandle_t LCD_CONTROLLER_Q = NULL;
+QueueHandle_t LCD_CONT_Q = NULL;
 
 /**
  * Initialize the Q
  */
-QueueHandle_t initializeLControllerQ(QueueHandle_t lcdContQ, uint8_t queueSize)
+QueueHandle_t LCDCONTQ_initializeQueue(QueueHandle_t lcdContQ, uint8_t queueSize)
 {
     // Create Message Q
     lcdContQ = xQueueCreate(LCD_CONT_Q_MAX_NUM_MESSAGES, sizeof(lcd_msg_t));
@@ -38,7 +38,7 @@ QueueHandle_t initializeLControllerQ(QueueHandle_t lcdContQ, uint8_t queueSize)
  * Enqueue message
  * Send message to queue (blocks for up to 100 ticks if queue is full)
  */
-BaseType_t enqueueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg)
+BaseType_t LCDCONTQ_enqueueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg)
 {
     if (xQueueSend(lcdContQ, &msg, pdMS_TO_TICKS(100)) == pdTRUE) {
         ESP_LOGI("lcdController::enqueueMessage:", "Sent message ID: %d", msg.msgID);
@@ -51,14 +51,20 @@ BaseType_t enqueueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg)
 
 /**
  * Dequeue message
- * Receive message (blocks indefinitely until a message arrives)
+ * Receive message 
+ * Blocks indefinitely until a message arrives
  */
-BaseType_t dequeueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg, unsigned int msgID)
+void LCDCONTQ_dequeueMessage(QueueHandle_t lcdContQ, lcd_msg_t msg)
 {
-    // Recieve message
-    if (xQueueReceive(lcdContQ, &msg, portMAX_DELAY) == pdTRUE) {
+    const TickType_t xTicksToWait = pdMS_TO_TICKS(1000);
+
+    // Recieve message -- BLOCKING
+    if (xQueueReceive(lcdContQ, &msg, xTicksToWait) == pdPASS) {
         ESP_LOGI("lcdController::dequeueMessage:", "Received message ID: %d", msg.msgID);
-        return pdTRUE;
+        //return pdTRUE;
+    } else {
+        // Timeout reached; no item was available
+        printf("Queue receive timeout!\n");
+        abort();
     }
-    return pdFALSE;
 }

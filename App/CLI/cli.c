@@ -14,6 +14,10 @@
 #include "esp_log.h"
 #include "gpio_pin_assign.h"    // for GPIO pin assignments
 #include "dev.h"    // for devFlag
+// for LCD Controller functionality
+#include "lcdController.h"
+extern QueueHandle_t LCD_CONT_Q;
+
 
 /******   Globals        */
 
@@ -213,6 +217,21 @@ static BaseType_t prvDevCmd( char *cmdOutputBuffer, size_t cmdOutBufSize, const 
             ESP_LOGI("DEV", "Passed Param: %s", pcParameter); 
 
             xParameterNumber++;
+
+            // msg for testing lcd q
+            lcd_msg_t testMsg;
+            memcpy(testMsg.data, "test msg lcd", 12);
+            testMsg.msgID = 1;
+            testMsg.msgType = LCD_MSG_DATA;
+
+            // check if lcd controller active
+            if(LCD_CONT_Q != NULL)
+            {
+                LCDCONTQ_enqueueMessage(LCD_CONT_Q, testMsg);
+            } else {
+                ESP_LOGE("devCmd", "LCD_CONT_Q not initialized");
+            }
+
         }
     } while( pcParameter != NULL );
 

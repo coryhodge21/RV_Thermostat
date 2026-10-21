@@ -25,7 +25,7 @@
 
 // for LCD Controller functionality
 #include "lcdController.h"
-extern QueueHandle_t LCD_CONTROLLER_Q;
+extern QueueHandle_t LCD_CONT_Q;
 
 
 void lcd_task(void * pvParameters) {
@@ -51,7 +51,19 @@ void lcd_task(void * pvParameters) {
     lcd_init(lcd);
 
     /*  Import LCD Controller   */
-    initializeLControllerQ(LCD_CONTROLLER_Q, LCD_CONT_Q_MAX_NUM_MESSAGES);
+    //LCDCONTQ_initializeQueue(LCD_CONT_Q, LCD_CONT_Q_MAX_NUM_MESSAGES);
+
+       // Create Message Q
+    LCD_CONT_Q = xQueueCreate(LCD_CONT_Q_MAX_NUM_MESSAGES, sizeof(lcd_msg_t));
+
+    // Check for allocation success
+    if (LCD_CONT_Q == NULL) {
+        ESP_LOGE("lcdController::initializeControllerQ:", "Error creating the queue, pointer = NULL");
+      
+    }
+
+    // instantiate a message
+    lcd_msg_t msg;
 
     /*  Begin application */
 
@@ -73,6 +85,31 @@ void lcd_task(void * pvParameters) {
     while(1)
     {   
         vTaskDelay(500 / portTICK_PERIOD_MS);
+
+        //LCDCONTQ_dequeueMessage(LCD_CONT_Q, msg);
+    //const TickType_t xTicksToWait = pdMS_TO_TICKS(1000);
+    if (xQueueReceive(LCD_CONT_Q, &msg, pdMS_TO_TICKS(1000)) == pdPASS) {
+        ESP_LOGI("lcdController::dequeueMessage:", "Received message ID: %d", msg.msgID);
+        //return pdTRUE;
+    } else {
+        // Timeout reached; no item was available
+        printf("Queue receive timeout!\n");
+        //abort();
+    }
+
+        // switch(msg.msgType){
+
+        //     case (LCD_MSG_CMD):
+        //         break;
+
+        //     case (LCD_MSG_DATA):
+        //         // write single line msg to the screen
+        //         lcd_print(lcd, (char*)msg.data);
+        //         break;
+
+        //     default:
+        //         break;
+        // }
 
     }
 }
