@@ -21,8 +21,14 @@ TaskHandle_t xCliTaskHandle = NULL;
 //startTasks
 void startTasks(void)
 {
+      /**
+       * occupies hardware : I2C_NUM_0
+       */
     xTaskCreate(lcd_task, "lcd_task", 2048, NULL, 4, &xLcdTaskHandle);
 
+    /**
+       * occupies hardware : UART_NUM_0
+       */
     xTaskCreate(cli_task, "cli_task", 2048, NULL, 4, &xCliTaskHandle);
 
           /**

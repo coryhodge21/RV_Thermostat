@@ -15,7 +15,10 @@
   */
  void application_entry(void)
  {
-    // Configuration and initialization code for the application can be added here.
+   // Configuration and initialization code for the application can be added here.
+
+   // Startup Screen
+
 
     // tasks are organized into the tasks.c file
     startTasks();

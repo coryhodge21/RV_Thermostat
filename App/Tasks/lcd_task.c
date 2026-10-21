@@ -23,6 +23,9 @@
 // for pin assignments
 #include "gpio_pin_assign.h"
 
+// for LCD Controller functionality
+#include "lcdController.h"
+extern QueueHandle_t LCD_CONTROLLER_Q;
 
 
 void lcd_task(void * pvParameters) {
@@ -33,10 +36,10 @@ void lcd_task(void * pvParameters) {
     // LCD Device Handle ( device to be added to the master bus)
     i2c_master_dev_handle_t lcd_handle = NULL;
 
-   /* -- Set up the I2C Bus -- */
-   initialize_i2c_bus(&bus_handle, I2C_CLK_SRC_DEFAULT, I2C_NUM_0, LCD_I2C_SDA, LCD_I2C_SCL, true);
+    /* -- Set up the I2C Bus -- */
+    initialize_i2c_bus(&bus_handle, I2C_CLK_SRC_DEFAULT, I2C_NUM_0, LCD_I2C_SDA, LCD_I2C_SCL, true);
 
-   /* -- Add LCD Display to the I2C Bus -- */
+    /* -- Add LCD Display to the I2C Bus -- */
     i2cAddSlaveToBus(bus_handle, &lcd_handle, LCD_SCL_SPEED_HZ, LCD_ADDR);
     
     /* -- LCD -- */
@@ -47,45 +50,67 @@ void lcd_task(void * pvParameters) {
     // Initialize LCD
     lcd_init(lcd);
 
-	// Prepare the LCD screen
+    /*  Import LCD Controller   */
+    initializeLControllerQ(LCD_CONTROLLER_Q, LCD_CONT_Q_MAX_NUM_MESSAGES);
+
+    /*  Begin application */
+
+    // Flash screen on startup
+    lcd_display_off(lcd);
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+    lcd_display_on(lcd);
+    vTaskDelay(500 / portTICK_PERIOD_MS);
+
+    // Prepare the LCD screen
     lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY); 
     lcd_send_cmd(lcd, LCD_CMD_RETURN_HOME);  
 
+    // Print Startup Message
+    lcd_print(lcd, "RV Thermostat");
+    vTaskDelay(1000 / portTICK_PERIOD_MS);
+
 	/* Task Loop */
     while(1)
-    {
-        // Test cursor
-        lcd_home(lcd);  // Move cursor to home position (0,0)
-        lcd_show_cursor(lcd);
-        lcd_blink_cursor(lcd);
+    {   
+        vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // Test Sent Bytes
-		lcd_send_data(lcd, 'H');
-		vTaskDelay(500 / portTICK_PERIOD_MS);
+    }
+}
 
-		lcd_send_data(lcd, 'E');
-		vTaskDelay(500 / portTICK_PERIOD_MS);
 
-		lcd_send_data(lcd, 'L');
-		vTaskDelay(500 / portTICK_PERIOD_MS);
+    // {
+    //     // Test cursor
+    //     lcd_home(lcd);  // Move cursor to home position (0,0)
+    //     lcd_show_cursor(lcd);
+    //     lcd_blink_cursor(lcd);
 
-        lcd_send_data(lcd, 'L');
-		vTaskDelay(500 / portTICK_PERIOD_MS);
+    //     // Test Sent Bytes
+	// 	lcd_send_data(lcd, 'H');
+	// 	vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        lcd_send_data(lcd, '0');
-		vTaskDelay(500 / portTICK_PERIOD_MS);
+	// 	lcd_send_data(lcd, 'E');
+	// 	vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // Test Print String
-        lcd_print(lcd, " RIO");
+	// 	lcd_send_data(lcd, 'L');
+	// 	vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // // Test No Blink Cursor
-         lcd_no_blink_cursor(lcd);
-         vTaskDelay(1000 / portTICK_PERIOD_MS);
+    //     lcd_send_data(lcd, 'L');
+	// 	vTaskDelay(500 / portTICK_PERIOD_MS);
 
-        // // Test set cursor
-         lcd_set_cursor(lcd, 1, 3);  // Move cursor to the beginning of the second line
-         lcd_print(lcd, "Woof Woof!");
-         vTaskDelay(1000 / portTICK_PERIOD_MS);
+    //     lcd_send_data(lcd, '0');
+	// 	vTaskDelay(500 / portTICK_PERIOD_MS);
+
+    //     // Test Print String
+    //     lcd_print(lcd, " RIO");
+
+    //     // // Test No Blink Cursor
+    //      lcd_no_blink_cursor(lcd);
+    //      vTaskDelay(1000 / portTICK_PERIOD_MS);
+
+    //     // // Test set cursor
+    //      lcd_set_cursor(lcd, 1, 3);  // Move cursor to the beginning of the second line
+    //      lcd_print(lcd, "Woof Woof!");
+    //      vTaskDelay(1000 / portTICK_PERIOD_MS);
 
         // // test lcd_send_cmd fx
 		// lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY);
@@ -150,5 +175,3 @@ void lcd_task(void * pvParameters) {
 
         // // Short delay before repeating the loop
         // vTaskDelay(500 / portTICK_PERIOD_MS);
-    }
-}

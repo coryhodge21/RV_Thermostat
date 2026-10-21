@@ -7,6 +7,7 @@ idf_component_register(
     INCLUDE_DIRS 
         "include"
         "../Configs"   # for GPIO pin assignments
+        "../SOURCE/lcdController"   # for lcdController module
     PRIV_REQUIRES 
         freertos
         LCD_I2C # LCD Interface
@@ -14,6 +15,7 @@ idf_component_register(
         freeRTOS_CLI # freeRTOS CLI extension
         uart # my driver for uart functionality wrappers
         CLI # CLI component
+        lcdController # lcdController 
     REQUIRES 
         driver
     )

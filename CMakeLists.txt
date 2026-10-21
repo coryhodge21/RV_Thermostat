@@ -48,6 +48,8 @@ set(EXTRA_COMPONENT_DIRS
     "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE"
     # App Source Code : UART
     "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/serialRelay"
+    # App Source Code : LCD Controller
+    "${CMAKE_CURRENT_LIST_DIR}/App/SOURCE/lcdController"
 )
 
 # Output Build informationaaa
