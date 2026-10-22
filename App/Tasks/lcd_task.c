@@ -87,8 +87,9 @@ void lcd_task(void * pvParameters) {
         vTaskDelay(500 / portTICK_PERIOD_MS);
 
         //LCDCONTQ_dequeueMessage(LCD_CONT_Q, msg);
+        // portMAX_DELAY
     //const TickType_t xTicksToWait = pdMS_TO_TICKS(1000);
-    if (xQueueReceive(LCD_CONT_Q, &msg, pdMS_TO_TICKS(1000)) == pdPASS) {
+    if (xQueueReceive(LCD_CONT_Q, &msg,  portMAX_DELAY) == pdPASS) {
         ESP_LOGI("lcdController::dequeueMessage:", "Received message ID: %d", msg.msgID);
         //return pdTRUE;
     } else {
@@ -97,19 +98,24 @@ void lcd_task(void * pvParameters) {
         //abort();
     }
 
-        // switch(msg.msgType){
+        switch(msg.msgType){
 
-        //     case (LCD_MSG_CMD):
-        //         break;
+            case (LCD_MSG_CMD):
+                break;
 
-        //     case (LCD_MSG_DATA):
-        //         // write single line msg to the screen
-        //         lcd_print(lcd, (char*)msg.data);
-        //         break;
+            case (LCD_MSG_DATA):
+                lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY); 
+                lcd_send_cmd(lcd, LCD_CMD_RETURN_HOME);  
+                // write single line msg to the screen
+                lcd_print(lcd, (char*)msg.data);
+                break;
 
-        //     default:
-        //         break;
-        // }
+            default:
+                lcd_send_cmd(lcd, LCD_CMD_CLEAR_DISPLAY); 
+                lcd_send_cmd(lcd, LCD_CMD_RETURN_HOME);
+                lcd_print(lcd, "default cond. reached"); 
+                break;
+        }
 
     }
 }

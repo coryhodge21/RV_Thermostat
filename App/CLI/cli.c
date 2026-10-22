@@ -220,7 +220,7 @@ static BaseType_t prvDevCmd( char *cmdOutputBuffer, size_t cmdOutBufSize, const 
 
             // msg for testing lcd q
             lcd_msg_t testMsg;
-            memcpy(testMsg.data, "test msg lcd", 12);
+            memcpy(testMsg.data, pcParameter, xParameterLength);
             testMsg.msgID = 1;
             testMsg.msgType = LCD_MSG_DATA;
 
