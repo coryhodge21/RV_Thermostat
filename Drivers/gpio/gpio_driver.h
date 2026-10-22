@@ -27,6 +27,8 @@ extern TaskHandle_t xGPIOTaskHandle;
  */
 extern bool GPIO_ISR_FLAG;
 
+/**         GPIO ISR    */
+void IRAM_ATTR gpio_isr_handler(void* arg);
 
 /**     Function Declerations    */
 

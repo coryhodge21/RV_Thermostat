@@ -18,6 +18,9 @@ TaskHandle_t xLcdTaskHandle = NULL;
 // Global handle for CLI task
 TaskHandle_t xCliTaskHandle = NULL;
 
+// Task handle for GPIO
+TaskHandle_t xGPIOTaskHandle = NULL;
+
 //startTasks
 void startTasks(void)
 {
@@ -48,7 +51,7 @@ void startTasks(void)
 
    // PRIORITY : 5
    // GPIO
-   //xTaskCreate(GPIO_task, "GPIO_task", 1024 * 2, NULL, 5, NULL);
+   xTaskCreate(GPIO_task, "GPIO_task", 1024 * 2, NULL, 5, NULL);
    
    // PRIORITY : 4
    // LCD Display
