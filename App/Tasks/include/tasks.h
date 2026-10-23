@@ -10,6 +10,9 @@
 // Maximum Assignable Task Priority Level
 #define TASK_PRIO_MAX (configMAX_PRIORITIES - 1)
 
+// for ESPLOG
+#include "esp_log.h"
+
 /**
  * startTasks
  * @brief: start all tasks that will run on system

@@ -21,6 +21,9 @@
 // for project pin layout
 #include "gpio_pin_assign.h"
 
+// for ESPLOG
+#include "esp_log.h"
+
 /**
  * Global Task Handle
  */
@@ -79,6 +82,13 @@ void GPIO_task(void *arg)
             blink_led(LED_GPIO);
         }
 
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(500));
+
+        ESP_LOGI("GPIO_TASk:", "ISR_FLAG: %d", GPIO_ISR_FLAG);
+
+
+        vTaskDelay(pdMS_TO_TICKS(500));
+
+
     }
 }

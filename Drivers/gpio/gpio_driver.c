@@ -9,7 +9,7 @@
 #include "freertos/FreeRTOS.h"  // for IRAM_ATTR
 #include "gpio_driver.h"        // Project Driver
 #include <string.h>             // for memset()
-//#include "esp_log.h"          // for ESP_LOG
+#include "esp_log.h"          // for ESP_LOG
 //#include "freertos/task.h"  // for TaskHandle_t
 //#include "driver/gpio.h"    // freeRTOS driver for uart macros
 
@@ -29,6 +29,7 @@ void IRAM_ATTR gpio_isr_handler(void* arg) {
     
     // Set a flag when button is pushed to toggle LED blinking
     GPIO_ISR_FLAG = !GPIO_ISR_FLAG;
+
 }
 
 
