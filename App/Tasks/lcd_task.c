@@ -36,7 +36,9 @@ extern QueueHandle_t LCD_CONT_Q;
 void lcd_task(void * pvParameters) {
 
     //uart_write_bytes(UART_NUM_1, "dev port test 1", 15);
-    devOut("dev port test 1");
+    int devTest = 3;
+    float devFlt = 1.23;
+    devOut("dev port test :%d & %5.2f", devTest, devFlt);
 
     // Master Bus Handle
     i2c_master_bus_handle_t bus_handle = NULL;
