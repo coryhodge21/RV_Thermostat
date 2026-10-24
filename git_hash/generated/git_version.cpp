@@ -1,3 +1,3 @@
 
 #include "git_version.h"
-const char *kGitHash = "e10770f";
+const char *kGitHash = "1ef5012";

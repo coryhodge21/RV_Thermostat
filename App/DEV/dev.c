@@ -51,7 +51,7 @@ void devOut(const char* msg, ... )
     if(len >= 0)
     {
         // output the msg to the dev buffer
-        uart_write_bytes(UART_DEV_PORT, outStr, sizeof(outStr));
+        uart_write_bytes(UART_DEV_PORT, outStr, strlen(outStr));
     }
     else
     {
