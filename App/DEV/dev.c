@@ -55,7 +55,7 @@ void devOut(const char* msg, ... )
     }
     else
     {
-        ESP_LOGE("DEV", "ERROR OUTPUT TO DEV PORT");
+        ESP_LOGE(TAG, "ERROR OUTPUT TO DEV PORT");
     }
 }
 

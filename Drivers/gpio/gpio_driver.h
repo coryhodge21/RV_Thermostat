@@ -17,18 +17,18 @@
 #define LOW           0
 
 
-/**
- * Global Task Handle
- */
-extern TaskHandle_t xGPIOTaskHandle;
+// /**
+//  * Global Task Handle
+//  */
+// extern TaskHandle_t xGPIOTaskHandle;
 
-/**
- * Global ISR Flag
- */
-extern bool GPIO_ISR_FLAG;
+// /**
+//  * Global ISR Flag
+//  */
+// extern bool GPIO_ISR_FLAG;
 
-/**         GPIO ISR    */
-void IRAM_ATTR gpio_isr_handler(void* arg);
+// /**         GPIO ISR    */
+// void IRAM_ATTR gpio_isr_handler(void* arg);
 
 /**     Function Declerations    */
 
