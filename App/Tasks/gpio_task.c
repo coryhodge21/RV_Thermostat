@@ -125,9 +125,9 @@ bool gpio_configure_pins(void)
     */         
     gpioConfig.pin_bit_mask = (1ULL << BUTTON_2_GPIO); 
     gpioConfig.mode = GPIO_MODE_INPUT;
-    gpioConfig.pull_up_en = GPIO_PULLUP_ENABLE;             // No internal Resistor (pins 34-39) add 10K resistor to pull high
-    gpioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
-    gpioConfig.intr_type = GPIO_INTR_NEGEDGE;
+    gpioConfig.pull_up_en = GPIO_PULLUP_DISABLE;             // No internal Resistor (pins 34-39) add 10K resistor to pull high
+    gpioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;        
+    gpioConfig.intr_type = GPIO_INTR_NEGEDGE;               // falling edge of button press
 
     // BUTTON Configure
     gpio_config(&gpioConfig);
@@ -144,7 +144,7 @@ bool gpio_configure_pins(void)
     */         
     gpioConfig.pin_bit_mask = (1ULL << BUTTON_3_GPIO); 
     gpioConfig.mode = GPIO_MODE_INPUT;
-    gpioConfig.pull_up_en = GPIO_PULLUP_ENABLE;                 // Does have internal Resistor add 220ohm resistor to pull high for LED
+    gpioConfig.pull_up_en = GPIO_PULLUP_DISABLE;                 // Does have internal Resistor add 220ohm resistor to pull high for LED
     gpioConfig.pull_down_en = GPIO_PULLDOWN_DISABLE;
     gpioConfig.intr_type = GPIO_INTR_NEGEDGE;
 
@@ -166,37 +166,42 @@ void GPIO_task(void *arg)
      */
     gpio_configure_pins();
 
+    // Track State of LEDs
+    int stateLED = 0;
+
+    // Track State of ISR Flags
+    bool stateButtons[3] = {0};
+    int button1Index = 0;
+    int button2Index = 1;
+    int button3Index = 2;
+
     // GPIO Processing Task
     while(1)
     {
-        // Button 1
-        if(BUTTON_1_ISR_FLAG)
+        // update Button array
+        stateButtons[button1Index] = BUTTON_1_ISR_FLAG;
+        stateButtons[button2Index] = BUTTON_2_ISR_FLAG;
+        stateButtons[button3Index] = BUTTON_3_ISR_FLAG;
+
+        vTaskDelay(pdMS_TO_TICKS(50));
+
+        // Capture the state of the ISRs
+        if(stateButtons[0] || stateButtons[1] || stateButtons[2])
         {
-            togglePin(LED_GPIO);
-        }
-        // Button 2
-        if(BUTTON_2_ISR_FLAG)
-        {
-            togglePin(LED_GPIO);
-        }
-        // Button 3
-        if(BUTTON_3_ISR_FLAG)
-        {
-            togglePin(LED_GPIO);
+
+            ESP_LOGI("GPIO_TASk:", "HIGH: 1-%d 2-%d 3-%d",stateButtons[0] , stateButtons[1], stateButtons[2]);
+
+            togglePin(LED_GPIO, stateLED);
         }
                     // Blink LED
            // blink_led(LED_GPIO);
         
-        if(BUTTON_1_ISR_FLAG || BUTTON_2_ISR_FLAG || BUTTON_3_ISR_FLAG)
-        {
 
-            ESP_LOGI("GPIO_TASk:", "ISR_FLAGs: 1-%d 2-%d 3-%d", BUTTON_1_ISR_FLAG, BUTTON_2_ISR_FLAG, BUTTON_3_ISR_FLAG);
-        }
 
         vTaskDelay(pdMS_TO_TICKS(500));
 
-        //ESP_LOGI("GPIO_TASk:", "ISR_FLAGs: 1-%d 2-%d 3-%d", BUTTON_1_ISR_FLAG, BUTTON_2_ISR_FLAG, BUTTON_3_ISR_FLAG);
+        ESP_LOGI("GPIO_TASk:", "ANY: 1-%d 2-%d 3-%d", BUTTON_1_ISR_FLAG, BUTTON_2_ISR_FLAG, BUTTON_3_ISR_FLAG);
 
-//        vTaskDelay(pdMS_TO_TICKS(500));
+       vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
