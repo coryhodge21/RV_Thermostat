@@ -27,22 +27,30 @@ TaskHandle_t xUart1TaskHandle = NULL;
 //startTasks
 void startTasks(void)
 {
-      /**
-       * occupies hardware : I2C_NUM_0
-       */
-    xTaskCreate(lcd_task, "lcd_task", 2048 * 2, NULL, 4, &xLcdTaskHandle);
 
-    /**
-       * occupies hardware : UART_NUM_0
-       */
-    xTaskCreate(cli_task, "cli_task", 2048 * 2, NULL, 4, &xCliTaskHandle);
-
-          /**
+   /**
     *          TASK'S
     * Priorities are defined from 0 up to configMAX_PRIORITIES - 1
     * 0 is lowest priority (assigned to idle task)
     * (configMAX_PRIORITIES - 1) is highest priority
-    */
+   */
+
+   // PRIORITY : 1 
+   // Create task for Uart 1
+   xTaskCreate(uart1_task, "uart1_test_task", 1024 * 4, NULL, 1, NULL);
+   
+
+   /**
+     * occupies hardware : I2C_NUM_0
+   */
+   xTaskCreate(lcd_task, "lcd_task", 2048 * 2, NULL, 4, &xLcdTaskHandle);
+
+   /**
+    * occupies hardware : UART_NUM_0
+   */
+   xTaskCreate(cli_task, "cli_task", 2048 * 2, NULL, 4, &xCliTaskHandle);
+
+
 
    // PRIORITY : (24) TASK_PRIO_MAX - Highest
    // Create a task for general development (UART 1)
@@ -78,10 +86,7 @@ void startTasks(void)
    //xTaskCreate(uart1_task_relay, "uart1_task_relay", 3072, NULL, TASK_PRIO_MAX - 20, &xU1U2ST_TaskHandle);
    //xTaskCreate(uart2_task_relay, "uart2_task_relay", 3072, NULL, TASK_PRIO_MAX - 20, &xU2U1ST_TaskHandle);
 
-   // PRIORITY : 1 
-   // Create task for Uart 1
-   xTaskCreate(uart1_task, "uart1_test_task", 1024 * 4, NULL, 1, NULL);
-   
+
    // PRIORITY : 1 
    // Create task for UART 2
    //xTaskCreate(uart2_test_task, "uart2_test_task", 1024 * 2, NULL, 1, NULL);

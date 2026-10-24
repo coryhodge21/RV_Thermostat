@@ -61,6 +61,7 @@ void uart1_task(void * pvParameters)
 
         // Sleep Task 10 seconds
         vTaskDelay(100);
+
     }
 
     if(xUart1TaskHandle != NULL)

@@ -23,12 +23,20 @@
 // for pin assignments
 #include "gpio_pin_assign.h"
 
+// for uart1 (dev port)
+#include "driver/uart.h"
+
 // for LCD Controller functionality
 #include "lcdController.h"
 extern QueueHandle_t LCD_CONT_Q;
 
+// for testing
+#include "dev.h"
 
 void lcd_task(void * pvParameters) {
+
+    //uart_write_bytes(UART_NUM_1, "dev port test 1", 15);
+    devOut("dev port test 1");
 
     // Master Bus Handle
     i2c_master_bus_handle_t bus_handle = NULL;

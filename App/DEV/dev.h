@@ -14,6 +14,12 @@
 #include "esp_log.h"
 #include <string.h>
 
+// for uart1 driver
+#include "driver/uart.h"
+
+// for dev port assignment
+#include "gpio_pin_assign.h"
+
 // Link Dev Flag to this module
 extern int devFlag;
 
@@ -26,7 +32,8 @@ extern TaskHandle_t xDevTaskHandle;
 void dev_task(void * pvParameters);
 
 /**
- * 
+ * devOut
+ * output string to uart 1
  */
-
+void devOut(const char* msg, ... );
 #endif // _DEV_H_

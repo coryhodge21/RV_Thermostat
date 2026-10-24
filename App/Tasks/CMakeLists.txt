@@ -23,6 +23,7 @@ idf_component_register(
         lcdController # lcdController
         gpio    # gpio Driver
         uart    # uart wrapper
+        DEV     # dev interface
     REQUIRES 
         driver
     )

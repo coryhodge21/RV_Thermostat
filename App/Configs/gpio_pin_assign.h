@@ -17,6 +17,7 @@
 // UART 1
 #define TX_PIN_UART_1   GPIO_NUM_5              // Default not recomended : GPIO_NUM_10
 #define RX_PIN_UART_1   GPIO_NUM_18             // Default not recomended : GPIO_NUM_9
+
 // UART 2
 #define TX_PIN_UART_2   GPIO_NUM_17              // Default : GPIO_NUM_17
 #define RX_PIN_UART_2   GPIO_NUM_16             // Default : GPIO_NUM_16
@@ -40,3 +41,12 @@
 #define I2C_MASTER_SDA    GPIO_NUM_21
 #define I2C_SLAVE_SCL    GPIO_NUM_22
 #define I2C_SLAVE_SDA    GPIO_NUM_21
+
+
+/*  ******************************** */
+/**     --- APPLICATION PINS ---     */
+/*  ******************************** */
+// UART 1 - DEV PORT
+#define UART_DEV_PORT   UART_NUM_1
+#define UART_DEV_PORT_TX_PIN TX_PIN_UART_1
+#define UART_DEV_PORT_RX_PIN RX_PIN_UART_1 

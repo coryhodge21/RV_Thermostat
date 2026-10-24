@@ -153,7 +153,7 @@ esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EV
     bool COMMAND_READY = false;
 
     // optional spy on data
-    bool debug = true;
+    bool debug = false;
     
     while(1) 
     {
@@ -174,7 +174,7 @@ esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EV
                     // Display input
                     if(debug == true)
                     {
-                        ESP_LOGI(TAG,"Read Bytes:%c", inputStream[byte]);
+                        ESP_LOGI(TAG,"Read Byte:%c", inputStream[byte]);
                     }
 
                     // compare byte against termination chars \n or \r
