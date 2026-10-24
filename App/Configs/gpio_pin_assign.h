@@ -7,6 +7,11 @@
  * @note: list file thats that rely on pin assingmnets
  */
 
+ 
+/*  ******************************** */
+/**     --- APPLICATION PINS ---     */
+/*  ******************************** */
+
  /**
   * uart_driver pins
   */
@@ -25,8 +30,11 @@
 /**
  * GPIO Pins
  */
-#define BUTTON_GPIO   GPIO_NUM_35
-#define LED_GPIO      GPIO_NUM_25
+#define LED_GPIO        GPIO_NUM_33 // RTC_GPIO8
+#define BUTTON_3_GPIO   GPIO_NUM_32 // RTC_GPIO9
+#define BUTTON_2_GPIO   GPIO_NUM_35 // RTC_GPIO5  // No internal Resistor (pins 34-39) add 10K resistor to pull high
+#define BUTTON_1_GPIO   GPIO_NUM_34 // RTC_GPIO4  // No internal Resistor (pins 34-39) add 10K resistor to pull high
+
 
 /**
  * LCD Pins
@@ -42,10 +50,6 @@
 #define I2C_SLAVE_SCL    GPIO_NUM_22
 #define I2C_SLAVE_SDA    GPIO_NUM_21
 
-
-/*  ******************************** */
-/**     --- APPLICATION PINS ---     */
-/*  ******************************** */
 // UART 1 - DEV PORT
 #define UART_DEV_PORT   UART_NUM_1
 #define UART_DEV_PORT_TX_PIN TX_PIN_UART_1

@@ -45,3 +45,24 @@ void blink_led(gpio_num_t led_pin)
     vTaskDelay(pdMS_TO_TICKS(500));
 
 }
+
+// read current gpio level, toggle its logic level output
+// @attention for gpio pins configured as OUTPUT ONLY
+void togglePin(gpio_num_t togglePin)
+{
+    // get current logic level
+    int logic = gpio_get_level(togglePin);
+
+    // HIGH
+    if(logic)
+    {
+        // Set LOW
+        gpio_set_level(togglePin, LOW);
+    }
+    // LOW
+    else
+    {
+        // Set HIGH
+        gpio_set_level(togglePin, HIGH);
+    }
+}

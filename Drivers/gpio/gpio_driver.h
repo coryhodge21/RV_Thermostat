@@ -42,6 +42,10 @@
  */
 void blink_led(gpio_num_t led_pin);
 
+// read current gpio level, toggle its logic level output
+// @attention for gpio pins configured as OUTPUT ONLY
+void togglePin(gpio_num_t togglePin);
+
 /**
  * GPIO COMMANDS
  */
