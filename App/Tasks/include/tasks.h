@@ -32,4 +32,7 @@ void cli_task(void *pvParameters);
 /**         gpio_task    */
 void GPIO_task(void *pvParameters);
 
+/**         uart1_task   */
+void uart1_task(void * pvParameters);
+
 #endif // _TASKS_H_

@@ -29,9 +29,9 @@ static const char *TAG = "uart_driver";
 /**
  * All Uart Q's Defined in this file : uart_driver.c
  */
-QueueHandle_t QUEUE_UART_0;
-QueueHandle_t QUEUE_UART_1;
-QueueHandle_t QUEUE_UART_2;
+extern QueueHandle_t QUEUE_UART_0;
+extern QueueHandle_t QUEUE_UART_1;
+extern QueueHandle_t QUEUE_UART_2;
 
 // /**
 //  * Task Handles
@@ -153,7 +153,7 @@ esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EV
     bool COMMAND_READY = false;
 
     // optional spy on data
-    bool debug = false;
+    bool debug = true;
     
     while(1) 
     {

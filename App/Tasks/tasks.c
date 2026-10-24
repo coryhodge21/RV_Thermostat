@@ -21,6 +21,9 @@ TaskHandle_t xCliTaskHandle = NULL;
 // Task handle for GPIO
 TaskHandle_t xGPIOTaskHandle = NULL;
 
+// Uart 1
+TaskHandle_t xUart1TaskHandle = NULL;
+
 //startTasks
 void startTasks(void)
 {
@@ -77,7 +80,7 @@ void startTasks(void)
 
    // PRIORITY : 1 
    // Create task for Uart 1
-   //xTaskCreate(uart1_test_task, "uart1_test_task", 1024 * 2, NULL, 1, NULL);
+   xTaskCreate(uart1_task, "uart1_test_task", 1024 * 4, NULL, 1, NULL);
    
    // PRIORITY : 1 
    // Create task for UART 2

@@ -84,7 +84,7 @@ void GPIO_task(void *arg)
 
         vTaskDelay(pdMS_TO_TICKS(500));
 
-        ESP_LOGI("GPIO_TASk:", "ISR_FLAG: %d", GPIO_ISR_FLAG);
+        //ESP_LOGI("GPIO_TASk:", "ISR_FLAG: %d", GPIO_ISR_FLAG);
 
 
         vTaskDelay(pdMS_TO_TICKS(500));

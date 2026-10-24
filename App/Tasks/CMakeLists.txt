@@ -5,12 +5,14 @@ idf_component_register(
         "tasks.c"     # wrapper for task organization
         "lcd_task.c"  # LCD
         "cli_task.c"  # CLI
-        "gpio_task.c"
+        "gpio_task.c" # gpio
+        "uart1_task.c" # uart1
     INCLUDE_DIRS 
         "include"
         "../Configs"   # for GPIO pin assignments
         "../SOURCE/lcdController"   # for lcdController module
        # "../Drivers/gpio"
+        "../../Drivers/uart"   #uart1_task uses uart_driver wrapper fx's (RV_Thermostat/Drivers/uart)
     PRIV_REQUIRES 
         freertos
         LCD_I2C # LCD Interface
@@ -20,6 +22,7 @@ idf_component_register(
         CLI # CLI component
         lcdController # lcdController
         gpio    # gpio Driver
+        uart    # uart wrapper
     REQUIRES 
         driver
     )
