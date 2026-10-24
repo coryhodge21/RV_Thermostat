@@ -19,7 +19,7 @@ static const char *TAG = "DEV";
  */
 int devFlag = 0;
 
-TaskHandle_t xDevTaskHandle = NULL;
+//extern TaskHandle_t xDevTaskHandle;
 
 #define DEV_PORT UART_NUM_1
 #define DEV_PORT_BAUD 115200
@@ -60,38 +60,39 @@ void devOut(const char* msg, ... )
 }
 
 
-/** DEV TASK    */
-void dev_task(void * pvParameters)
-{
-    // Allocate buffer for parsing
-    char * devBuffer = (char *) malloc(DEV_BUFF_MAX_LEN);
-    size_t msgLen = 0;
+// /** DEV TASK    */
+// void dev_task(void * pvParameters)
+// {
+//     // Allocate buffer for parsing
+//     char * devBuffer = (char *) malloc(DEV_BUFF_MAX_LEN);
+//     size_t msgLen = 0;
 
-    configureUart(DEV_PORT, DEV_PORT_BAUD, TX_PIN_UART_1, RX_PIN_UART_1);
+//     configureUart(DEV_PORT, DEV_PORT_BAUD, TX_PIN_UART_1, RX_PIN_UART_1);
 
-    while(1)
-    {
-        // If setDevFlag CLI Command Issued
-        if(devFlag == 1)
-        {
-            ESP_LOGI(TAG, "Dev Flag Set!");
-        }
+//     while(1)
+//     {
+//         // If setDevFlag CLI Command Issued
+//         if(devFlag == 1)
+//         {
+//             ESP_LOGI(TAG, "Dev Flag Set!");
+//         }
 
-        // Collect data from uart port up to \n or \r, 
-        //  populate response into devBuffer
-        uartCommunicationLoop(DEV_PORT, DEV_PORT_QUEUE, devBuffer, msgLen);
+//         // Collect data from uart port up to \n or \r, 
+//         //  populate response into devBuffer
+//         uartCommunicationLoop(DEV_PORT, DEV_PORT_QUEUE, devBuffer, msgLen);
 
-        // Prove data handling works
-        ESP_LOGI(TAG, "%s", devBuffer);        
+//         // Prove data handling works
+//         ESP_LOGI(TAG, "%s", devBuffer);        
 
 
 
-        // Sleep Task
-        vTaskDelay(500);
-    }
+//         // Sleep Task
+//         vTaskDelay(500);
+//     }
 
-    if(xDevTaskHandle != NULL)
-    {
-        vTaskDelete(xDevTaskHandle);
-    }
- }
+//     if(xDevTaskHandle != NULL)
+//     {
+//         vTaskDelete(xDevTaskHandle);
+//     }
+//  }
+

@@ -40,8 +40,8 @@ esp_err_t configureUartWithPatternDetection(uart_port_t uartNum, int baudRate, c
  */
 esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EVNT_Q, char * msg, size_t msgLen);
 
-/**     Test Tasks   */
-void uart1_test_task(void * pvParameters);
-void uart2_test_task(void * pvParameters);
+// /**     Test Tasks   */
+// void uart1_test_task(void * pvParameters);
+// void uart2_test_task(void * pvParameters);
 
 #endif // _UART_DRIVER_H_

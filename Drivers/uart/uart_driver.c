@@ -82,7 +82,7 @@ esp_err_t configureUart(uart_port_t uartNum, int baudRate, gpio_num_t txPin, gpi
         //Set UART pins (using UART0 default pins ie no changes.)
         uart_set_pin(uartNum, /*TX*/txPin, /*RX*/ rxPin, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 
-        ESP_LOGI("uart_driver", "[Uart_1] Tx:GPIO_5, Rx:GPIO_18");
+        ESP_LOGI("uart_driver", "[Uart_1/DEV] Tx:GPIO_5, Rx:GPIO_18");
     }
     else if (uartNum == UART_NUM_2)
     {
@@ -141,7 +141,8 @@ esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EV
     uart_event_t event;
 
     // input stream of bytes from uart port. can be single or multiple bytes
-    char * inputStream = (char *) malloc(MAX_BUFFER_LEN);
+    //char * inputStream = (char *) malloc(MAX_BUFFER_LEN);
+    char inputStream[MAX_BUFFER_LEN]={0};
 
     // clear buffer
     memset(msg, '\0', sizeof(msg));
@@ -253,7 +254,7 @@ esp_err_t uartCommunicationLoop(uart_port_t UART_PORT_NUM, QueueHandle_t UART_EV
 
     // free memory
     free(inputStream);
-    inputStream = NULL;
+    //inputStream = NULL;
 
     // return complete
     return ESP_OK;

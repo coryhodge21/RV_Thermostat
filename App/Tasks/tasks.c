@@ -24,6 +24,9 @@ TaskHandle_t xGPIOTaskHandle = NULL;
 // Uart 1
 TaskHandle_t xUart1TaskHandle = NULL;
 
+// dev
+TaskHandle_t xDevTaskHandle = NULL;
+
 //startTasks
 void startTasks(void)
 {
@@ -35,9 +38,14 @@ void startTasks(void)
     * (configMAX_PRIORITIES - 1) is highest priority
    */
 
-   // PRIORITY : 1 
-   // Create task for Uart 1
-   xTaskCreate(uart1_task, "uart1_test_task", 1024 * 4, NULL, 1, NULL);
+  // PRIORITY : (24) TASK_PRIO_MAX - Highest
+  // Create a task for general development (UART 1)
+  xTaskCreate(dev_task, "dev_task", 1024 * 4, NULL, TASK_PRIO_MAX, &xDevTaskHandle);
+
+
+  // PRIORITY : 1 
+  // Create task for Uart 1
+  //xTaskCreate(uart1_task, "uart1_test_task", 1024 * 4, NULL, 1, NULL);
    
 
    /**
@@ -52,9 +60,6 @@ void startTasks(void)
 
 
 
-   // PRIORITY : (24) TASK_PRIO_MAX - Highest
-   // Create a task for general development (UART 1)
-   //xTaskCreate(dev_task, "dev_task", 1024 * 4, NULL, TASK_PRIO_MAX, &xDevTaskHandle);
 
    // PRIORITY : 10
    // Create a task to handle CLI functionality (UART 0)

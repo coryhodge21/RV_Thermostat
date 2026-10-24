@@ -13,6 +13,11 @@
 // for ESPLOG
 #include "esp_log.h"
 
+// for devOut
+#include "dev.h"
+
+// for devTask
+
 /**
  * startTasks
  * @brief: start all tasks that will run on system
@@ -34,5 +39,8 @@ void GPIO_task(void *pvParameters);
 
 /**         uart1_task   */
 void uart1_task(void * pvParameters);
+
+/**         dev Task     */
+void dev_task(void * pvParameters);
 
 #endif // _TASKS_H_
