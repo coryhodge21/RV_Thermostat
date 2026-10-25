@@ -56,11 +56,13 @@ void togglePin(gpio_num_t togglePin, int logicLevel)
     {
         // Set LOW
         gpio_set_level(togglePin, LOW);
+        logicLevel = 0;
     }
     // LOW
     else
     {
         // Set HIGH
         gpio_set_level(togglePin, HIGH);
+        logicLevel = 1;
     }
 }
