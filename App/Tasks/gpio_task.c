@@ -65,7 +65,6 @@ void IRAM_ATTR gpio_isr_handler(void *args)
     
     switch(gpio_num)
     {
-
         case BUTTON_1_GPIO:
             // Set a flag when button is pushed to toggle LED blinking
             //BUTTON_1_ISR_FLAG = !BUTTON_1_ISR_FLAG;
@@ -198,7 +197,6 @@ void GPIO_task(void *arg)
 
     // Track State of LEDs
     int stateLED = 0;
-
 
 
     // GPIO Processing Task
