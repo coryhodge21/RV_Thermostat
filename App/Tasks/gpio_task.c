@@ -197,38 +197,50 @@ void GPIO_task(void *arg)
         // Capture the state of the ISRs
         if(GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX])
         {
-
-            ESP_LOGI("GPIO_TASk:", "HIGH: 1-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX]);
-
+            // toggle led
             togglePin(LED_GPIO, stateLED);
+            
+            // debug
+            ESP_LOGI("GPIO_TASk:", "HIGH: 1-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX]);
 
             // clear flag
             GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX] = 0;
-
+            
+            // Update state of LED
+            stateLED = !stateLED;
+            
         }
                 // Capture the state of the ISRs
         if(GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX])
         {
 
+            // debug
             ESP_LOGI("GPIO_TASk:", "HIGH: 2-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX]);
 
+            // toggle LED
             togglePin(LED_GPIO, stateLED);
 
             // clear flag
             GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX] = 0;
 
+            // Update state of LED
+            stateLED = !stateLED;
+
         }
                 // Capture the state of the ISRs
         if(GPIO_PUSHBUTTON_STATES[2])
         {
-
+            // debug
             ESP_LOGI("GPIO_TASk:", "HIGH: 3-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX]);
 
+            // toggle LED
             togglePin(LED_GPIO, stateLED);
 
             // clear flag
             GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX] = 0;
-
+            
+            // Update state of LED
+            stateLED = !stateLED;
         }
 
         vTaskDelay(pdMS_TO_TICKS(500));
