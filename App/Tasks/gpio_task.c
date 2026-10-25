@@ -33,32 +33,49 @@ extern TaskHandle_t xGPIOTaskHandle;
  * Global Flag for ISR
  */
 bool GPIO_ISR_FLAG = 0;         // general purpose gpio flag
-bool BUTTON_1_ISR_FLAG = 0;
-bool BUTTON_2_ISR_FLAG = 0;
-bool BUTTON_3_ISR_FLAG = 0;
+// bool BUTTON_1_ISR_FLAG = 0;
+// bool BUTTON_2_ISR_FLAG = 0;
+// bool BUTTON_3_ISR_FLAG = 0;
+
+#define GPIO_PUSHBUTTON_NUM 3
+#define GPIO_PUSHBUTTON_1_INDEX 0
+#define GPIO_PUSHBUTTON_2_INDEX 1
+#define GPIO_PUSHBUTTON_3_INDEX 2
+
+// Track State of ISR Flags
+bool GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_NUM] = {0};
+// int button1Index = 0;
+// int button2Index = 1;
+// int button3Index = 2;
 
 
 /**         GPIO ISR    */
-void IRAM_ATTR button_1_gpio_isr_handler(void* arg) {
+void IRAM_ATTR gpio_isr_handler(void *args)
+{
+    uint32_t gpio_num = (uint32_t) args;
     
-    // Set a flag when button is pushed to toggle LED blinking
-    BUTTON_1_ISR_FLAG = !BUTTON_1_ISR_FLAG;
+    switch(gpio_num)
+    {
 
-}
+        case BUTTON_1_GPIO:
+            // Set a flag when button is pushed to toggle LED blinking
+            //BUTTON_1_ISR_FLAG = !BUTTON_1_ISR_FLAG;
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX] = !GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX];
+        break;
 
-/**         GPIO ISR    */
-void IRAM_ATTR button_2_gpio_isr_handler(void* arg) {
-    
-    // Set a flag when button is pushed to toggle LED blinking
-    BUTTON_2_ISR_FLAG = !BUTTON_2_ISR_FLAG;
+        case BUTTON_2_GPIO:
+            // Set a flag when button is pushed to toggle LED blinking
+            //BUTTON_2_ISR_FLAG = !BUTTON_2_ISR_FLAG;
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX] = !GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX];
+        break;
+        
+        case BUTTON_3_GPIO:
+            // Set a flag when button is pushed to toggle LED blinking
+            //BUTTON_3_ISR_FLAG = !BUTTON_3_ISR_FLAG;
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX] = !GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX];
+        break;
 
-}
-
-/**         GPIO ISR    */
-void IRAM_ATTR button_3_gpio_isr_handler(void* arg) {
-    
-    // Set a flag when button is pushed to toggle LED blinking
-    BUTTON_3_ISR_FLAG = !BUTTON_3_ISR_FLAG;
+    }
 
 }
 
@@ -114,7 +131,7 @@ bool gpio_configure_pins(void)
     gpio_config(&gpioConfig);
 
     // Add the ISR handler for the specific GPIO pin
-    gpio_isr_handler_add(BUTTON_1_GPIO, button_1_gpio_isr_handler, (void*) BUTTON_1_GPIO);
+    gpio_isr_handler_add(BUTTON_1_GPIO, gpio_isr_handler, (void*) BUTTON_1_GPIO);
 
     /**
      * Configure BUTTON 2 GPIO 
@@ -133,7 +150,7 @@ bool gpio_configure_pins(void)
     gpio_config(&gpioConfig);
 
     // Add the ISR handler for the specific GPIO pin
-    gpio_isr_handler_add(BUTTON_2_GPIO, button_2_gpio_isr_handler, (void*) BUTTON_2_GPIO);
+    gpio_isr_handler_add(BUTTON_2_GPIO, gpio_isr_handler, (void*) BUTTON_2_GPIO);
 
     /**
      * Configure BUTTON 3 GPIO 
@@ -152,7 +169,7 @@ bool gpio_configure_pins(void)
     gpio_config(&gpioConfig);
 
     // Add the ISR handler for the specific GPIO pin
-    gpio_isr_handler_add(BUTTON_3_GPIO, button_3_gpio_isr_handler, (void*) BUTTON_3_GPIO);
+    gpio_isr_handler_add(BUTTON_3_GPIO, gpio_isr_handler, (void*) BUTTON_3_GPIO);
 
     return true;
 }
@@ -169,39 +186,52 @@ void GPIO_task(void *arg)
     // Track State of LEDs
     int stateLED = 0;
 
-    // Track State of ISR Flags
-    bool stateButtons[3] = {0};
-    int button1Index = 0;
-    int button2Index = 1;
-    int button3Index = 2;
+
 
     // GPIO Processing Task
     while(1)
     {
-        // update Button array
-        stateButtons[button1Index] = BUTTON_1_ISR_FLAG;
-        stateButtons[button2Index] = BUTTON_2_ISR_FLAG;
-        stateButtons[button3Index] = BUTTON_3_ISR_FLAG;
 
         vTaskDelay(pdMS_TO_TICKS(50));
 
         // Capture the state of the ISRs
-        if(stateButtons[0] || stateButtons[1] || stateButtons[2])
+        if(GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX])
         {
 
-            ESP_LOGI("GPIO_TASk:", "HIGH: 1-%d 2-%d 3-%d",stateButtons[0] , stateButtons[1], stateButtons[2]);
+            ESP_LOGI("GPIO_TASk:", "HIGH: 1-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX]);
 
             togglePin(LED_GPIO, stateLED);
-        }
-                    // Blink LED
-           // blink_led(LED_GPIO);
-        
 
+            // clear flag
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_1_INDEX] = 0;
+
+        }
+                // Capture the state of the ISRs
+        if(GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX])
+        {
+
+            ESP_LOGI("GPIO_TASk:", "HIGH: 2-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX]);
+
+            togglePin(LED_GPIO, stateLED);
+
+            // clear flag
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_2_INDEX] = 0;
+
+        }
+                // Capture the state of the ISRs
+        if(GPIO_PUSHBUTTON_STATES[2])
+        {
+
+            ESP_LOGI("GPIO_TASk:", "HIGH: 3-%d",GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX]);
+
+            togglePin(LED_GPIO, stateLED);
+
+            // clear flag
+            GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_3_INDEX] = 0;
+
+        }
 
         vTaskDelay(pdMS_TO_TICKS(500));
 
-        ESP_LOGI("GPIO_TASk:", "ANY: 1-%d 2-%d 3-%d", BUTTON_1_ISR_FLAG, BUTTON_2_ISR_FLAG, BUTTON_3_ISR_FLAG);
-
-       vTaskDelay(pdMS_TO_TICKS(500));
     }
 }
