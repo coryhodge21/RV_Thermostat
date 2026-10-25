@@ -30,6 +30,11 @@
 extern TaskHandle_t xGPIOTaskHandle;
 
 /**
+ * Queue for gpio pin info
+ */
+static QueueHandle_t gpio_evt_queue = NULL;
+
+/**
  * Global Flag for ISR
  */
 bool GPIO_ISR_FLAG = 0;         // general purpose gpio flag
@@ -52,7 +57,11 @@ bool GPIO_PUSHBUTTON_STATES[GPIO_PUSHBUTTON_NUM] = {0};
 /**         GPIO ISR    */
 void IRAM_ATTR gpio_isr_handler(void *args)
 {
+    // parse the first argument (gpio num)
     uint32_t gpio_num = (uint32_t) args;
+
+    // Send the pin number to a FreeRTOS queue
+    xQueueSendFromISR(gpio_evt_queue, &gpio_num, NULL);
     
     switch(gpio_num)
     {
@@ -89,6 +98,10 @@ bool gpio_configure_pins(void)
     //  Only Call This Once : Install the GPIO ISR service (enables per pin interrupts)
     //      ESP_INTR_FLAG_IRAM = requires IRAM_ATTR ISR's to be places in IRAM
     gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
+
+
+     // Create a queue to handle gpio event from ISR
+    gpio_evt_queue = xQueueCreate(10, sizeof(uint32_t));
 
     // Declare GPIO I/O Configuration Struct
     gpio_config_t gpioConfig;
@@ -191,6 +204,14 @@ void GPIO_task(void *arg)
     // GPIO Processing Task
     while(1)
     {
+
+        int io_num;
+
+        if (xQueueReceive(gpio_evt_queue, &io_num, portMAX_DELAY)) 
+        {
+            //ESP_LOGI("GPIO[%lu] intr, val: %d\n", io_num, gpio_get_level(io_num));
+            ESP_LOGI("GPIO_Q","evt_q_num:%d", io_num);
+        }
 
         vTaskDelay(pdMS_TO_TICKS(50));
 
